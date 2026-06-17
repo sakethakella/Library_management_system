@@ -9,6 +9,22 @@ public class Transaction {
     private LocalDate returnDate;
     private boolean returned;
     
+    public Transaction(String transactionId, Book book, Member member, LocalDate issueDate) {
+        this.transactionId = transactionId;
+        this.book = book;
+        this.member = member;
+        this.issueDate = issueDate;
+        this.returned = false;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
     public void closeTransaction(){
         this.returnDate=LocalDate.now();
         this.returned=true;

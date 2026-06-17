@@ -3,22 +3,37 @@ package com.Library.model;
 import java.util.ArrayList;
 
 public class Member extends User {
-    private int fine;
-    private ArrayList<Book> borrowedBooks= new ArrayList<Book>();
+    private String membershipId;
+    ArrayList<Book> borrowedBooks = new ArrayList<>();
 
-    public Member(String name, int id, String email, String password, String role) {
-        super(name, id, email, password, role);
+    public Member(long userId, String name, String membershipId) {
+        super(userId, name);
+        this.membershipId = membershipId;
     }
 
-    public void borrowBook(Book book) {
+    public void BorrowBook(Book book){
         borrowedBooks.add(book);
     }
 
-    public void returnBook(Book book){
+    public void ReturnBook(Book book){
         borrowedBooks.remove(book);
     }
 
-    public void payFine(){
-        System.out.println("Member has a fine of $" + this.fine);
+    public void getBorrowedBooks(){
+        for(Book book : borrowedBooks){
+            book.DisplayDetails();
+        }
+    }
+
+    public boolean canBorrow(){
+        return borrowedBooks.size() < 3; // Assuming a member can borrow at most 3 books
+    }
+
+    @Override
+    public void DisplayProfile(){
+        super.DisplayProfile();
+        System.out.println("Membership ID: " + membershipId);
+        System.out.println("Borrowed Books:");
+        getBorrowedBooks();
     }
 }
